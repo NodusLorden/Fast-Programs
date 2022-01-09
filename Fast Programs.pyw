@@ -17,7 +17,7 @@ class PrButtons:
 
     def __init__(self, path: str):
         self._path = path.strip("'").strip('"')
-        self._name = self._getfilename(self._path)
+        self._name = self._getfilename(self._path).rstrip(".lnk").rstrip(".exe")
         self._imgpath = "IconCash/" + self._name + ".png"
         self._iocnpath = "IconCash/" + self._name + ".ico"
         try:
