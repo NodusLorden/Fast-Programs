@@ -1,6 +1,6 @@
 import pymsgbox
 
-flog = (lambda *x: pymsgbox.alert(*x, "Ошибка"))
+flog = (lambda *x: pymsgbox.alert(*x, "TrayLink: Ошибка"))
 
 
 class MyExceptions(Exception):
