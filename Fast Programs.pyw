@@ -60,7 +60,7 @@ def main():
         menu_options.append(prog.get_option())
         print(prog.get_option())
 
-    systray = SysTrayIcon("icon.ico", "Programs", tuple(menu_options), on_quit=exit)
+    systray = SysTrayIcon("icon.ico", "Programs", tuple(menu_options))
     systray.start()
 
 
