@@ -24,9 +24,9 @@ E:\Программы\Wireshark\Wireshark.exe
 
 Для их устаноки можно использовать команды соответственно:
 ```
-  pip install infi.systray
-  pip install extract-icon
-  pip install pywin32
+pip install infi.systray
+pip install extract-icon
+pip install pywin32
 ```
 
 После можно запустить программу, для этого нужно иметь Python 3.8 или выше. Для добавления в автозагрузку, нужно сделать ярлык файла *TrayLink.bat* и кинуть его в папку автозагрузки. В *.bat* специально прописан код, чтобы консоль скрывалась после запуска. При запуске через Python версия *.pyw* используется для запуска без консоли.
