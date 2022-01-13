@@ -1,5 +1,6 @@
-from infi.systray import SysTrayIcon
 import os
+
+from infi.systray import SysTrayIcon
 import extract_icon
 
 
@@ -8,7 +9,8 @@ def load_programs():
         with open("Programs.txt", encoding="UTF-8") as f:
             programs = list(filter(lambda x: x, f.read().split("\n")))
     except Exception as er:
-        return er
+        print(er)
+        exit()
     return programs
 
 
@@ -16,21 +18,21 @@ class PrButtons:
 
     def __init__(self, path: str):
         self._path = path.strip("'").strip('"')
-        self._name = self._getfilename(self._path).rstrip(".lnk").rstrip(".exe")
-        self._imgpath = "IconCash/" + self._name + ".png"
-        self._iocnpath = "IconCash/" + self._name + ".ico"
-        try:
-            a = extract_icon.ExtractIcon(self._imgpath)
 
-            icons = a.get_group_icons()[0]
+        self._name = self._getfilename(self._path)
+        self._iocnpath = "IconCash/" + self._name + ".ico"
+
+        try:
+            a = extract_icon.ExtractIcon(self._path)
+
+            icons = a.get_group_icons()[0]  # get 0th group
 
             im = a.export(icons)
-
             im.save(self._iocnpath, format='ICO')
 
         except Exception as er:
             print(er)
-            self._iconpath = None
+            self._iconpath = None  # None == not load icon
 
     def get_option(self):
         return self._name, self._iocnpath, self.__call__
@@ -41,12 +43,12 @@ class PrButtons:
         except Exception as er:
             print(er)
 
-    @staticmethod
-    def _getfilename(path):
+    @classmethod
+    def _getfilename(cls, path):
         for i in range(len(path) - 1, -1, -1):
 
             if path[i] == "\\" or path[i] == "/":
-                return path[i + 1:]
+                return path[i + 1:].rstrip(".lnk").rstrip(".exe")
 
 
 def main():
@@ -58,7 +60,7 @@ def main():
         menu_options.append(prog.get_option())
         print(prog.get_option())
 
-    systray = SysTrayIcon("icon.ico", "Programs", tuple(menu_options))
+    systray = SysTrayIcon("icon.ico", "Programs", tuple(menu_options), on_quit=exit)
     systray.start()
 
 
