@@ -1,6 +1,5 @@
 from infi.systray import SysTrayIcon
 import os
-from PIL import Image
 import extract_icon
 
 
@@ -21,13 +20,13 @@ class PrButtons:
         self._imgpath = "IconCash/" + self._name + ".png"
         self._iocnpath = "IconCash/" + self._name + ".ico"
         try:
-            icon = extract_icon.ExtractIcon(self._path).get_icon(0)
+            a = extract_icon.ExtractIcon(self._imgpath)
 
-            with open(self._imgpath, mode="wb") as f:
-                f.write(icon)
+            icons = a.get_group_icons()[0]
 
-            img = Image.open(self._imgpath)
-            img.save(self._iocnpath, format='ICO')
+            im = a.export(icons)
+
+            im.save(self._iocnpath, format='ICO')
 
         except Exception as er:
             print(er)
@@ -59,7 +58,7 @@ def main():
         menu_options.append(prog.get_option())
         print(prog.get_option())
 
-    systray = SysTrayIcon("icon.ico", "Programs", tuple(menu_options), on_quit=exit)
+    systray = SysTrayIcon("icon.ico", "Programs", tuple(menu_options))
     systray.start()
 
 
