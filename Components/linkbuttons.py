@@ -58,7 +58,7 @@ class Buttons:
             raise IncorrectPath(path)
 
     @classmethod
-    def _getfilename(cls, path):
+    def _getfilename(cls, path: str):
         return os.path.split(path)[-1].rstrip(".exe")
 
     @classmethod
